@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SpanishVocab</string>
+    <string name="word_translation_intent_key">wordTranslationIntentKey</string>
 </resources>
