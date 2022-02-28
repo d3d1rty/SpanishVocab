@@ -58,7 +58,15 @@ class MainActivity : AppCompatActivity() {
         var spanishWordList = mutableListOf<String>()
         var englishWordList = mutableListOf<String>()
 
-        init { readWords() }
+        init {
+            val input : InputStream = getAssets().open("spanish_words.txt")
+            val scanner = Scanner(input)
+            while(scanner.hasNextLine()){
+                spanishWordList.add(scanner.nextLine().toString())
+                englishWordList.add(scanner.nextLine().toString())
+                scanner.nextLine()
+            }
+        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -72,16 +80,6 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int {
             return spanishWordList.size;
-        }
-
-        fun readWords() {
-            val input : InputStream = getAssets().open("spanish_words.txt")
-            val scanner = Scanner(input)
-            while(scanner.hasNextLine()){
-                spanishWordList.add(scanner.nextLine().toString())
-                englishWordList.add(scanner.nextLine().toString())
-                scanner.nextLine()
-            }
         }
     }
 }
