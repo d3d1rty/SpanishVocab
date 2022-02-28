@@ -2,12 +2,11 @@ package com.example.spanishvocab
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.spanishvocab.R.menu.main_menu
 import com.example.spanishvocab.databinding.ActivityMainBinding
 import java.io.InputStream
 import java.util.*
@@ -26,6 +25,26 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = MainAdapter()
         binding.mainRecyclerview.adapter = adapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val wordListSize = binding.mainRecyclerview.adapter!!.itemCount
+        if (item.itemId == R.id.menu_item_top) {
+            binding.mainRecyclerview.scrollToPosition(0)
+            return true
+        } else if (item.itemId == R.id.menu_item_bottom) {
+            binding.mainRecyclerview.scrollToPosition(wordListSize - 1)
+            return true
+        } else {
+            val offset = wordListSize - (0..wordListSize).random()
+            binding.mainRecyclerview.scrollToPosition(offset)
+            return true
+        }
     }
 
     inner class MainViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
